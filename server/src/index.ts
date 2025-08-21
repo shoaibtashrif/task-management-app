@@ -28,7 +28,7 @@ app.use(limiter);
 // CORS
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-app.vercel.app'] 
+    ? ['https://client-j4uv85yrb-shoaib-tashrifs-projects.vercel.app'] 
     : ['http://localhost:3000'],
   credentials: true
 }));
