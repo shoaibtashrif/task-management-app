@@ -2,14 +2,8 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import dotenv from 'dotenv';
-
-
-
-dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // In-memory data storage
 let boards: any[] = [
@@ -92,9 +86,7 @@ app.use(limiter);
 
 // CORS
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://client-4ht2h4aix-shoaib-tashrifs-projects.vercel.app', 'https://client-qn0cbsluq-shoaib-tashrifs-projects.vercel.app'] 
-    : ['http://localhost:3000'],
+  origin: ['https://client-lu3hbmdkk-shoaib-tashrifs-projects.vercel.app', 'http://localhost:3000'],
   credentials: true
 }));
 
@@ -330,11 +322,6 @@ app.use('*', (req: Request, res: Response) => {
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 
 export default app; 

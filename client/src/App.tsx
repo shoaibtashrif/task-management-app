@@ -38,14 +38,14 @@ function App() {
       setLoading(true);
       
       // Load users first
-      const usersResponse = await fetch('http://localhost:5000/api/users');
+      const usersResponse = await fetch('https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/users');
       if (usersResponse.ok) {
         const usersData = await usersResponse.json();
         setUsers(usersData);
       }
       
       // Load boards
-      const boardsResponse = await fetch(`http://localhost:5000/api/boards?user_id=${DEMO_USER_ID}`);
+      const boardsResponse = await fetch(`https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/boards?user_id=${DEMO_USER_ID}`);
       if (boardsResponse.ok) {
         const boardsData = await boardsResponse.json();
         setBoards(boardsData);
@@ -67,13 +67,13 @@ function App() {
 
   const loadBoardWithMembers = async (boardId: string) => {
     try {
-      const boardResponse = await fetch(`http://localhost:5000/api/boards/${boardId}`);
+      const boardResponse = await fetch(`https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/boards/${boardId}`);
       if (boardResponse.ok) {
         const boardData = await boardResponse.json();
         setCurrentBoard(boardData);
         
         // Load lists for the board
-        const listsResponse = await fetch(`http://localhost:5000/api/lists?board_id=${boardId}`);
+        const listsResponse = await fetch(`https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/lists?board_id=${boardId}`);
         if (listsResponse.ok) {
           const listsData = await listsResponse.json();
           setLists(listsData);
@@ -81,7 +81,7 @@ function App() {
           // Load tasks for all lists
           const allTasks: Task[] = [];
           for (const list of listsData) {
-            const tasksResponse = await fetch(`http://localhost:5000/api/tasks?list_id=${list.id}`);
+            const tasksResponse = await fetch(`https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/tasks?list_id=${list.id}`);
             if (tasksResponse.ok) {
               const tasksData = await tasksResponse.json();
               allTasks.push(...tasksData);
@@ -99,7 +99,7 @@ function App() {
     if (!newBoardTitle.trim()) return;
     
     try {
-      const response = await fetch('http://localhost:5000/api/boards', {
+      const response = await fetch('https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/boards', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ function App() {
         // Create default lists for new board
         const defaultLists = ['To Do', 'In Progress', 'Done'];
         for (let i = 0; i < defaultLists.length; i++) {
-          await fetch('http://localhost:5000/api/lists', {
+          await fetch('https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/lists', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ function App() {
     if (!newListTitle.trim() || !currentBoard) return;
     
     try {
-      const response = await fetch('http://localhost:5000/api/lists', {
+      const response = await fetch('https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/lists', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -173,7 +173,7 @@ function App() {
     if (!newTaskTitle.trim() || !selectedListId) return;
     
     try {
-      const response = await fetch('http://localhost:5000/api/tasks', {
+      const response = await fetch('https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/tasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -204,7 +204,7 @@ function App() {
 
   const updateTask = async (task: Task) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/tasks/${task.id}`, {
+      const response = await fetch(`https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/tasks/${task.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -227,7 +227,7 @@ function App() {
     if (!newMemberUserId || !currentBoard) return;
     
     try {
-      const response = await fetch(`http://localhost:5000/api/boards/${currentBoard.id}/members`, {
+      const response = await fetch(`https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/boards/${currentBoard.id}/members`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -255,7 +255,7 @@ function App() {
     if (!currentBoard) return;
     
     try {
-      const response = await fetch(`http://localhost:5000/api/boards/${currentBoard.id}/members/${userId}`, {
+      const response = await fetch(`https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/boards/${currentBoard.id}/members/${userId}`, {
         method: 'DELETE',
       });
       
@@ -322,7 +322,7 @@ function App() {
       
       // Update in database
       try {
-        await fetch(`http://localhost:5000/api/tasks/${task.id}/move`, {
+        await fetch(`https://server-pu84g82sc-shoaib-tashrifs-projects.vercel.app/api/tasks/${task.id}/move`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
